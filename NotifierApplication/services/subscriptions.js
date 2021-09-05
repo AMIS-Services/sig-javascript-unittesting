@@ -58,8 +58,13 @@ function getEnded (channel, instant) {
     });
 }
 
+function getAll (){
+    return list;
+}
+
 module.exports = {
     getActive,
     getAdded,
-    getEnded
+    getEnded,
+    getAll
 }
