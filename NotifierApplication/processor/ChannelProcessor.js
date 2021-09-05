@@ -1,29 +1,22 @@
+const instant = instant.EPOCH;
+const channel = require('./channel');
+const notificationService = require('../services/notificationService');
 
+class ChannelProcessor {
+    constructor(channel, notificationService) {
+        this.channel = channel;
+        this.notificationService = notificationService;
+    }
 
-var ChannelProcessor = function (channel, notificationService) {
-    this._channel = channel;
-};
-
-module.exports = {
-    ChannelProcessor
+    run() {
+        const notificationList = notificationService.getNotifications(channel.getChannelId(), instant);
+        const optional = notificationList.stream().filter(notification => notification.getCreatedAt() != null).map(Notification => Notification.getCreatedAt).max(Instant => Instant.compareTo);
+        if (optional.isPresent()) this.instant = optional.get();
+        notificationList.forEach(notification => System.out.println(notification.getMessage()));
+    }
 }
 
-
-// class ChannelProcessor {
-
-//     instant = Instant.EPOCH;
-//     notificationService = 1;
-//     channel = new Channel();
-
-//     ChannelProcessor(channel, notificationService) {
-//         this.channel = channel;
-//         this.notificationService = notificationService;
-//     }
-
-//     run() {
-//         var notificationList = notificationService.getNotifications(channel.getChannelId(), instant);
-//         var optional = notificationList.stream().filter(notification => notification.getCreatedAt() != null).map(Notification => Notification.getCreatedAt).max(Instant => Instant.compareTo);
-//         if (optional.isPresent()) this.instant = optional.get();
-//         notificationsList.forEach(notification => System.out.println(notification.getMessage()));
-//     }
-// }
+module.exports = {
+    ChannelProcessor,
+    run
+}

@@ -1,9 +1,12 @@
 const subscriptionService = require("../services/subscriptions");
 const vaultService = require("../services/vault");
 const channelProcessor = require("./channelProcessor");
+const channel = require("./channel");
 let notificationService = 1;
 
 let channelProcessors = new Map();
+
+var channels;
 
 function getProcessorsForActiveSubscriptions() {
     activeList = subscriptionService.getActive("Api01");
@@ -74,25 +77,11 @@ function sendNotifications() {
     if (channelProcessors.size > 0) {
         channelProcessors.forEach((value) => {
             console.log("channel = " + value._channel._channelId);
-            // channelProcessor.run();
+            channelProcessor.run();
         });
     }
     return;
 }
-
-var Channel = function (secret, value) {
-    this.secret = secret;
-    this._value = value;
-    pos = value ? 0 : value.indexOf("##");
-    if (pos > 0) {
-        this._channelId = value.substring(0, pos);
-        this._credential = value.substring(pos+2);
-    } else {
-        this._channelId = secret;
-        this._credential = "";
-    }
-};
-
 
 module.exports = {
     sendNotifications
