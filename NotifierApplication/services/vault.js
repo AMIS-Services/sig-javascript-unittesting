@@ -1,5 +1,5 @@
 function getSecret (key) {
-    return "GEHEIM";
+    return key + "##GEHEIM";
 }
 
 module.exports = {

@@ -1,7 +1,7 @@
 list = [{
     id: '1',
     api: '1',
-    subscriber: '1',
+    subscriber: 'Piet',
     clientId: '1',
     sessionId: '111111111',
     channelId: '1',
@@ -12,17 +12,35 @@ list = [{
 {
     id: '2',
     api: '1',
-    subscriber: '3',
+    subscriber: 'Piet',
     clientId: '1',
     sessionId: '999999999',
     channelId: '1',
     subscribedAt: '2021-06-18T21:02:00'
+},
+{
+    id: '3',
+    api: '1',
+    subscriber: 'Jan',
+    clientId: '1',
+    sessionId: '999999999',
+    channelId: '1',
+    subscribedAt: '2021-06-18T21:02:00'
+},
+{
+    id: '4',
+    api: '1',
+    subscriber: 'Jan',
+    clientId: '1',
+    sessionId: '6455643',
+    channelId: '2',
+    subscribedAt: '2021-06-18T21:03:00'
 }]
 
 addedList = [{
     id: '20',
     api: '1',
-    subscriber: '1',
+    subscriber: 'Piet',
     clientId: '1',
     sessionId: '5432534',
     channelId: '1',
@@ -31,7 +49,7 @@ addedList = [{
 {
     id: '21',
     api: '1',
-    subscriber: '3',
+    subscriber: 'Jan',
     clientId: '1',
     sessionId: '411234',
     channelId: '1',

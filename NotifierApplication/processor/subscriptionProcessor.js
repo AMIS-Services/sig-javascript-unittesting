@@ -1,6 +1,6 @@
 const subscriptionService = require("../services/subscriptions");
 const vaultService = require("../services/vault");
-const channelProcessor = require("./channelProcessor");
+const channelProcessor = require("./ChannelProcessor");
 const channel = require("./channel");
 let notificationService = 1;
 
@@ -34,10 +34,6 @@ function determineMostRecent(subscriptions) {
     return mostRecentSub;
 }
 
-// function determineLastEnded(subscriptions) {
-//     return subscriptions.stream().filter(subscription -> subscription.getEnd() != null).map(Subscription::getUnsubscribedAt).max(Instant::compareTo);
-// }
-
 function determineChannelMap(subscriptions) {
     channels = new Map();
     subscriptions.forEach(subscription => {
@@ -70,10 +66,7 @@ function sendNotifications() {
             channelProcessors.set(key, value);
         });
     }
-    // ended = getProcessorsForEndedSubscriptions();
-    // if (!ended.isEmpty()) {
-    //     ended.values().forEach(channelProcessor -> channelProcessors.remove(channelProcessor));
-    // }
+
     if (channelProcessors.size > 0) {
         channelProcessors.forEach((value) => {
             console.log("channel = " + value._channel._channelId);

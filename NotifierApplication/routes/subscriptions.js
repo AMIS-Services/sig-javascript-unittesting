@@ -3,12 +3,12 @@ var subscriptions = require('../processor/subscriptionProcessor')
 var subscriptionRepo = require('../services/subscriptions')
 var router = express.Router();
 
-/* GET users listing. */
+/* GET start sending notifications. */
 router.get('/', function (req, res, next) {
   res.send(subscriptions.sendNotifications());
 });
-  
-  /* GET users listing. */
+
+/* GET all subscriptions. */
 router.get('/subscriptions', function (req, res, next) {
   res.send(subscriptionRepo.getAll());
 });
