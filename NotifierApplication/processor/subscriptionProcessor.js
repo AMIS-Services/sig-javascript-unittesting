@@ -1,8 +1,7 @@
 const subscriptionService = require("../services/subscriptions");
 const vaultService = require("../services/vault");
-const channelProcessor = require("./ChannelProcessor");
-const channel = require("./channel");
-let notificationService = 1;
+const ChannelProcessor = require("./ChannelProcessor");
+const Channel = require("./channel");
 
 let channelProcessors = new Map();
 
@@ -37,10 +36,12 @@ function determineMostRecent(subscriptions) {
 function determineChannelMap(subscriptions) {
     channels = new Map();
     subscriptions.forEach(subscription => {
-        secret = subscription['subscriber'];
-        if (!channels.get(secret)) {
-            channel = new Channel(secret, vaultService.getSecret(secret));
-            channels.set(secret, channel);
+        secret = subscription['channelId'];
+        subscriber = subscription['subscriber'];
+        key = subscriber + "|" + secret;
+        if (!channels.get(key)) {
+            channel = new Channel(secret, subscriber, vaultService.getSecret(secret));
+            channels.set(key, channel);
         }
     });
     return channels;
@@ -49,9 +50,9 @@ function determineChannelMap(subscriptions) {
 function createChannelProcessors(channels, subscriptions) {
     result = new Map();
     subscriptions.forEach(subscription => {
-        channel = channels.get(subscription.subscriber);
+        channel = channels.get(subscription.subscriber + "|" + subscription.channelId);
         if (channel != null) {
-            proc = new channelProcessor.ChannelProcessor(channel, notificationService);
+            proc = new ChannelProcessor(channel);
             result.set(subscription, proc);
         }
     });
@@ -68,8 +69,8 @@ function sendNotifications() {
     }
 
     if (channelProcessors.size > 0) {
-        channelProcessors.forEach((value) => {
-            console.log("channel = " + value._channel._channelId);
+        channelProcessors.forEach((channelProcessor) => {
+            console.log("channel = " + channelProcessor.channel.channelId);
             channelProcessor.run();
         });
     }

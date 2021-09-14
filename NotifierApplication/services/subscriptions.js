@@ -1,4 +1,4 @@
-list = [{
+subscriptionList = [{
     id: '1',
     api: '1',
     subscriber: 'Piet',
@@ -22,7 +22,7 @@ list = [{
     id: '3',
     api: '1',
     subscriber: 'Jan',
-    clientId: '1',
+    clientId: '2',
     sessionId: '999999999',
     channelId: '1',
     subscribedAt: '2021-06-18T21:02:00'
@@ -40,24 +40,24 @@ list = [{
 addedList = [{
     id: '20',
     api: '1',
-    subscriber: 'Piet',
-    clientId: '1',
+    subscriber: 'Klaas',
+    clientId: '5',
     sessionId: '5432534',
-    channelId: '1',
+    channelId: '2',
     subscribedAt: '2021-07-19T18:00:00',
 },
 {
     id: '21',
     api: '1',
-    subscriber: 'Jan',
-    clientId: '1',
+    subscriber: 'Eric',
+    clientId: '3',
     sessionId: '411234',
     channelId: '1',
     subscribedAt: '2021-07-18T21:02:00'
 }]
 
 function getActive (channel) {
-    return list.filter(function(e) {
+    return subscriptionList.filter(function(e) {
         return e.unsubscribedAt == null &&
             e.sessionRemovedAt == null;
     });
@@ -71,13 +71,13 @@ function getAdded (channel, instant) {
 }
 
 function getEnded (channel, instant) {
-    return list.filter(function(e) {
+    return subscriptionList.filter(function(e) {
         return e.sessionRemovedAt != null;
     });
 }
 
 function getAll (){
-    return list;
+    return subscriptionList;
 }
 
 module.exports = {

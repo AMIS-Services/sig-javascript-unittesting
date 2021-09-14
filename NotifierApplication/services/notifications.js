@@ -1,4 +1,4 @@
-list = [{
+notificationList = [{
         id: '1',
         channelId: '1',
         message: 'message1',
@@ -31,10 +31,9 @@ list = [{
 
 function getNotifications(channelId, instant) {
     assert(channelId != null, "Channel must not be null");
-    assert(channelId.size() > 0, "Channel must not be empty");
-    return list.filter(function (e) {
+    return notificationList.filter(function (e) {
         return e.channelId == channelId &&
-            e.createdAt > instant;
+            Date.parse(e.createdAt) > instant;
     });
 }
 
@@ -45,7 +44,7 @@ function assert(condition, message) {
 }
 
 function getAll() {
-    return list;
+    return notificationList;
 }
 
 module.exports = {

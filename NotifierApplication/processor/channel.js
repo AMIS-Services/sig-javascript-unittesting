@@ -1,16 +1,15 @@
 const DOUBLE_HASHTAG = "##";
 
-class Channel {
-    constructor(secret, value){
+module.exports = class Channel {
+    constructor(channelId, secret, value){
+        this.channelId = channelId;
         this.subscriber = secret;
         this.value = value;
 
-        const pos = String.isEmpty(value) ? 0 : value.indexOf(DOUBLE_HASHTAG);
+        const pos = value ? value.indexOf(DOUBLE_HASHTAG) : 0;
         if (pos > 0) {
-            this.channelId = value.substring(0, pos);
             this.credential = value.substring(pos+2);
         } else {
-            this.channelId = secret;
             this.credential = "";
         }
     }
