@@ -9,8 +9,8 @@ var channels;
 
 function getProcessorsForActiveSubscriptions() {
     activeList = subscriptionService.getActive("Api01");
-    channels = determineChannelMap(activeList);
-    return createChannelProcessors(channels, activeList);
+    channels = exportFunctions.determineChannelMap(activeList);
+    return exportFunctions.createChannelProcessors(channels, activeList);
 }
 
 function getProcessorsForAddedSubscriptions() {
@@ -77,6 +77,14 @@ function sendNotifications() {
     return;
 }
 
+
+const exportFunctions = {
+    getProcessorsForActiveSubscriptions,
+    determineChannelMap, 
+    createChannelProcessors
+  };
+
 module.exports = {
-    sendNotifications
+    sendNotifications,
+    exportFunctions
 }
