@@ -4,22 +4,17 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "morgan": "~1.9.1",
-    "babel-core": "^7.0.0-beta.3",
-    "babel-jest": "^27.0.0-next.8",
-    "babel-preset-env": "^7.0.0-beta.3",
-    "esm": "^3.2.25",
-    "jest": "^27.0.0-next.8"
+    "jade": "~1.11.0"
   },
   "devDependencies": {
+    "jest": "^27.2.2",
     "nodemon": "^2.0.12"
   }
 }

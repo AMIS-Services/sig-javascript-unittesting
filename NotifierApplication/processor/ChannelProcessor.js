@@ -8,7 +8,8 @@ module.exports = class ChannelProcessor {
 
     run() {
         const notificationList = notificationService.getNotifications(this.channel.channelId, this.instant);
-        notificationList.forEach(notification => console.log(this.channel.subscriber + " " + notification['message']));
+        // notificationList.forEach(notification => console.log(this.channel.subscriber + " " + notification['message']));
+        notificationList.forEach(notification => notificationService.sendNotification(this.channel.subscriber, notification));
     }
 }
 
