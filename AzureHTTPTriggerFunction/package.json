@@ -3,46 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "func start",
-    "pretest": "npx eslint --fix \"**/*.js\"",
     "test": "npx jest --ci --reporters=default --reporters=jest-junit --detectOpenHandles"
   },
-  "standard": {
-    "env": [
-      "jest"
-    ]
-  },
-  "jest": {
-    "verbose": true,
-    "collectCoverage": true,
-    "reporters": [
-      "default",
-      "jest-junit"
-    ],
-    "watchPathIgnorePatterns": [
-      "<rootDir>/node_modules/"
-    ]
-  },
-  "dependencies": {},
   "devDependencies": {
     "dotenv": "^10.0.0",
-    "eslint": "^7.32.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.24.2",
-    "eslint-plugin-jest": "^24.4.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0",
     "jest": "^27.2.2",
     "jest-junit": "^12.3.0"
   },
-  "directories": {
-    "test": "test"
-  },
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://enecomanagedcloud@dev.azure.com/enecomanagedcloud/IOT%20Platform/_git/meterreadings-api"
-  },
-  "author": "Eneco",
+  "author": "AMIS",
   "license": "UNLICENSED"
 }

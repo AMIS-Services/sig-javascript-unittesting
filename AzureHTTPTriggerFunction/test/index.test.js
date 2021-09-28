@@ -3,7 +3,7 @@ const { run } = require('../HttpTriggerSIG')
 const { ContextLogger } = require('./testhelper')
 
 describe('Happy Flow main function', () => {
-  const providedId
+  const providedId = '1'
   // const providedName
   
   beforeAll(async () => {

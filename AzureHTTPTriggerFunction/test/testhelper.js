@@ -43,7 +43,7 @@ class ContextLogger {
     }
 
     this.log = function (message) {
-      throw new Error('Do not use default log level')
+      //throw new Error('Do not use default log level')
     }
 
     this.log.info = function (msg) {
@@ -59,3 +59,8 @@ class ContextLogger {
     }
   }
 }
+
+module.exports = {
+  ContextLogger
+}
+
