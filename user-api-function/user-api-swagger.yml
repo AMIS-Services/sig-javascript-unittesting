@@ -1,0 +1,139 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: ''
+  description: ''
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/qss/user-api/1.0
+paths:
+  /users:
+    get:
+      summary: query all users
+      operationId: getUsers
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: bad input
+  /user:
+    post:
+      summary: add new user
+      operationId: createUser
+      requestBody:
+        $ref: '#/components/schemas/User'
+      responses:
+        '204':
+          description: success
+        '400':
+          description: error
+  /user/{id}:
+    get:
+      summary: query single users
+      operationId: getUser
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '400':
+          description: bad input
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - firstname
+        - lastname
+        - street
+        - houseno
+        - postalcode
+        - city
+        - email1
+      properties:
+        firstname:
+          type: string
+          example: "Jan"
+        lastname:
+          type: string
+          example: "Janszen"
+        prefix:
+          type: string
+        street:
+          type: string
+          example: "Dorpstraat"
+        houseno:
+          type: integer
+          example: 14
+        postalcode:
+          type: string
+          example: "9888AC"
+        city:
+          type: string
+          example: "Ons Dorp"
+        country:
+          type: string
+        phone1:
+          type: string
+        phone2:
+          type: string
+        email1:
+          type: string
+          example: "jan.janszen@example.com"
+        email2:
+          type: string
+    UserResponse:
+      type: object
+      required:
+        - firstname
+        - lastname
+        - street
+        - houseno
+        - postalcode
+        - city
+        - email1
+      properties:
+        firstname:
+          type: string
+          example: "Jan"
+        lastname:
+          type: string
+          example: "Janszen"
+        prefix:
+          type: string
+        street:
+          type: string
+          example: "Dorpstraat"
+        houseno:
+          type: integer
+          example: 14
+        postalcode:
+          type: string
+          example: "9888AC"
+        city:
+          type: string
+          example: "Ons Dorp"
+        country:
+          type: string
+        phone1:
+          type: string
+        phone2:
+          type: string
+        email1:
+          type: string
+          example: "jan.janszen@example.com"
+        email2:
+          type: string
+        date_created:
+          type: string
+        date_modified:
+          type: string
