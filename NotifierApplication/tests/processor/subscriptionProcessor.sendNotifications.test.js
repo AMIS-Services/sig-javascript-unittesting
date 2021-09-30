@@ -2,14 +2,15 @@ const subscriptionService = require('../../services/subscriptions');
 const notificationService = require('../../services/notifications');
 const processor = require('../../processor/subscriptionProcessor');
 
+
 jest.mock('../../services/subscriptions');
 jest.mock('../../services/notifications');
 
 test('send notifications', () => {
-    testlist = [{
+    const testlist = [{
         id: '1',
         api: '1',
-        subscriber: 'Piet',
+        subscriber: 'Hein',
         clientId: '1',
         sessionId: '111111111',
         channelId: '1',
@@ -20,7 +21,7 @@ test('send notifications', () => {
     {
         id: '2',
         api: '1',
-        subscriber: 'Jan',
+        subscriber: 'Suzanne',
         clientId: '55',
         sessionId: '87776',
         channelId: '2',
@@ -28,9 +29,11 @@ test('send notifications', () => {
         unsubscribedAt: '2021-06-20T19:00:00',
         sessionRemovedAt: '2021-06-20T20:00:00'
     }];
+    subscriptionService.getActive = jest.fn();
+    subscriptionService.getAdded = jest.fn();
     const mockGetActive = subscriptionService.getActive.mockReturnValue(testlist);
 
-    notificationList1 = [{
+    const notificationList1 = [{
         id: '1',
         channelId: '1',
         message: 'message1',
@@ -42,7 +45,7 @@ test('send notifications', () => {
         message: 'message2',
         createdAt: '2021-07-18T21:02:00'
     }]
-    notificationList2 = [
+    const notificationList2 = [
     {
         id: '2',
         channelId: '2',
@@ -59,11 +62,15 @@ test('send notifications', () => {
     expect(mockGetActive).toHaveBeenCalled();
     expect(mockSendNotification).toHaveBeenCalled();
 
+    // Mock is called 3 times
     expect(mockSendNotification.mock.calls.length).toBe(3);
-    expect(mockSendNotification.mock.calls[0][0]).toBe('Piet');
+    // First argument of first call is Hein
+    expect(mockSendNotification.mock.calls[0][0]).toBe('Hein');
+    // Second argument of first call is first element of notificationList1
     expect(mockSendNotification.mock.calls[0][1]).toEqual(notificationList1[0]);
-    expect(mockSendNotification.mock.calls[1][0]).toBe('Piet');
+    // First argument of second call is Hein
+    expect(mockSendNotification.mock.calls[1][0]).toBe('Hein');
     expect(mockSendNotification.mock.calls[1][1]).toEqual(notificationList1[1]);
-    expect(mockSendNotification.mock.calls[2][0]).toBe('Jan');
+    expect(mockSendNotification.mock.calls[2][0]).toBe('Suzanne');
     expect(mockSendNotification.mock.calls[2][1]).toEqual(notificationList2[0]);
 });
