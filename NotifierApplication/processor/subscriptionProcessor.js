@@ -3,14 +3,14 @@ const vaultService = require("../services/vault");
 const ChannelProcessor = require("./ChannelProcessor");
 const Channel = require("./channel");
 
-let channelProcessors = new Map();
+var channelProcessors = new Map();
 
 var channels;
 
 function getProcessorsForActiveSubscriptions() {
     activeList = subscriptionService.getActive("Api01");
-    channels = exportFunctions.determineChannelMap(activeList);
-    return exportFunctions.createChannelProcessors(channels, activeList);
+    channels = determineChannelMap(activeList);
+    return createChannelProcessors(channels, activeList);
 }
 
 function getProcessorsForAddedSubscriptions() {
@@ -77,14 +77,6 @@ function sendNotifications() {
     return;
 }
 
-
-const exportFunctions = {
-    getProcessorsForActiveSubscriptions,
-    determineChannelMap, 
-    createChannelProcessors
-  };
-
 module.exports = {
-    sendNotifications,
-    exportFunctions
+    sendNotifications
 }
