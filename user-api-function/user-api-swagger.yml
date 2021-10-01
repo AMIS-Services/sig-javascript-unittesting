@@ -21,8 +21,12 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/UserResponse'
-        '400':
-          description: bad input
+        '500':
+          description: An error occured
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerErrorResponse'
   /user:
     post:
       summary: add new user
@@ -30,10 +34,24 @@ paths:
       requestBody:
         $ref: '#/components/schemas/User'
       responses:
-        '204':
+        '201':
           description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserCreatedResponse'
         '400':
-          description: error
+          description: Mandatory fields missing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MandatoryFieldsMissingResponse'
+        '409':
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExistingRecordResponse'
   /user/{id}:
     get:
       summary: query single users
@@ -45,8 +63,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserResponse'
-        '400':
-          description: bad input
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundErrorResponse'
 components:
   schemas:
     User:
@@ -137,3 +159,41 @@ components:
           type: string
         date_modified:
           type: string
+    UserCreatedResponse:
+       type: object
+       required:
+       - id
+       properties:
+          id:
+            type: number
+            example: 1
+    ServerErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Unexpected error occured.'
+    NotFoundErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'User not found.'
+    InvalidRequestResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Invalid id (abc) supplied.'
+    ExistingRecordResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'User already exists.'
+    MandatoryFieldsMissingResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'One or more mandatory fields are missing.'
