@@ -44,7 +44,7 @@ module.exports = async function (context, req) {
   } else {
     context.res.status = 400
     resultBody = {
-      error: 'Misisng mandatory fields'
+      error: 'Missing mandatory fields'
     }
   }
   context.res.body = resultBody
