@@ -41,6 +41,11 @@ class ContextLogger {
   }
 }
 
+function countNoOfLogLines (context, text) {
+  return context.log_messages.filter(m => m.indexOf(text) >= 0).length
+}
+
 module.exports = {
-  ContextLogger
+  ContextLogger,
+  countNoOfLogLines
 }
