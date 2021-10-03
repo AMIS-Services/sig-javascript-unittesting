@@ -41,6 +41,7 @@ module.exports = async function (context, req) {
     })
     logDebug(context.log, `Result: ${resp}`)
     resultBody = resp
+    context.res.status = 201
   } else {
     context.res.status = 400
     resultBody = {
