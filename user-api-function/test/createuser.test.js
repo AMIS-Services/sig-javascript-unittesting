@@ -47,7 +47,7 @@ describe('Create a user', () => {
 
   it('should return status 400 when mandatory fields are missing', async () => {
     const expectedResponse = {
-      error: 'Missing mandatory fields'
+      error: 'One or more mandatory fields are missing.'
     }
     const user = {
       lastname: 'Janszen',
@@ -77,8 +77,10 @@ describe('Create a user', () => {
   })
 
   it('should return status 409 when existing record is found', async () => {
+    const executeTransactionCall = jest.spyOn(db, 'executeTransaction')
+    const validateRequestCall = jest.spyOn(validation, 'validateRequest')
     const expectedResponse = {
-      error: 'Missing mandatory fields'
+      error: 'User already exists.'
     }
     const user = {
       firstname: 'Jan',
@@ -94,12 +96,19 @@ describe('Create a user', () => {
       date_modified: new Date().toISOString()
     }
     validation.validateRequest.mockReturnValue(true)
+    db.executeTransaction.mockRejectedValue({
+      code: '23505',
+      constraints: 'uk_users',
+      message: 'duplicate entry'
+    })
     const request = {
       body: user
     }
     const context = new ContextLogger()
     await createUser(context, request)
-    expect(context.res.status).toBe(400)
+    expect(context.res.status).toBe(409)
     expect(context.res.body).toEqual(expectedResponse)
+    expect(executeTransactionCall).toHaveBeenCalled()
+    expect(validateRequestCall).toHaveBeenCalled()
   })
 })
