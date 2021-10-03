@@ -2,6 +2,7 @@
 class Res {
   constructor () {
     this.keys = []
+    this.status = 200
   }
 
   setHeader (key, value) {
