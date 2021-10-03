@@ -35,27 +35,31 @@ function determineMostRecent(subscriptions) {
 
 function determineChannelMap(subscriptions) {
     channels = new Map();
-    subscriptions.forEach(subscription => {
-        secret = subscription['channelId'];
-        subscriber = subscription['subscriber'];
-        key = subscriber + "|" + secret;
-        if (!channels.get(key)) {
-            channel = new Channel(secret, subscriber, vaultService.getSecret(secret));
-            channels.set(key, channel);
-        }
-    });
+    if (subscriptions) {
+        subscriptions.forEach(subscription => {
+            secret = subscription['channelId'];
+            subscriber = subscription['subscriber'];
+            key = subscriber + "|" + secret;
+            if (!channels.get(key)) {
+                channel = new Channel(secret, subscriber, vaultService.getSecret(secret));
+                channels.set(key, channel);
+            }
+        });
+    }
     return channels;
 }
 
 function createChannelProcessors(channels, subscriptions) {
     result = new Map();
-    subscriptions.forEach(subscription => {
-        channel = channels.get(subscription.subscriber + "|" + subscription.channelId);
-        if (channel != null) {
-            proc = new ChannelProcessor(channel);
-            result.set(subscription, proc);
-        }
-    });
+    if (subscriptions) {
+        subscriptions.forEach(subscription => {
+            channel = channels.get(subscription.subscriber + "|" + subscription.channelId);
+            if (channel != null) {
+                proc = new ChannelProcessor(channel);
+                result.set(subscription, proc);
+            }
+        });
+    }
     return result;
 }
 

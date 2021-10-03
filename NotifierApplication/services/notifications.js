@@ -37,6 +37,10 @@ function getNotifications(channelId, instant) {
     });
 }
 
+function sendNotification(subscriber, notification) {
+    console.log(subscriber + " " + notification['message']);
+}
+
 function assert(condition, message) {
     if (!condition) {
         throw message || "Assertion failed";
@@ -49,5 +53,6 @@ function getAll() {
 
 module.exports = {
     getNotifications,
+    sendNotification,
     getAll
 }
