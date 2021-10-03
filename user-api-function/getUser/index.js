@@ -44,9 +44,7 @@ module.exports = async function (context, req) {
       error: 'Missing user id'
     }
   }
-  context.res = {
-    body: resultBody
-  }
+  context.res.body = resultBody
 
   logFinished(context.log, 'Function succesfully completed')
 }

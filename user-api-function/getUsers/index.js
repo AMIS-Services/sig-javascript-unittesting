@@ -29,9 +29,7 @@ module.exports = async function (context, req) {
     }
   }
 
-  context.res = {
-    body: resultBody
-  }
+  context.res.body = resultBody
 
   logFinished(context.log, 'Function succesfully completed')
 }

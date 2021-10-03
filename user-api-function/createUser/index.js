@@ -47,9 +47,7 @@ module.exports = async function (context, req) {
       error: 'Misisng mandatory fields'
     }
   }
-  context.res = {
-    body: resultBody
-  }
+  context.res.body = resultBody
 
   logFinished(context.log, 'Function succesfully completed')
 }
