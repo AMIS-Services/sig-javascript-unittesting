@@ -65,6 +65,8 @@ create table public.users (
 	date_created timestamp with time zone not null default ( now() at time zone 'utc'),
 	date_modified timestamp with time zone not null
 );
+ALTER TABLE public.users
+    ADD CONSTRAINT uk_users UNIQUE (firstname, lastname, houseno, postalcode, city);
 ```
 
 ### Example insert script:

@@ -17,35 +17,50 @@ module.exports = async function (context, req) {
   let resultBody = {}
   const validatedUser = validateRequest(newUser)
   if (validatedUser) {
-    const resp = await executeTransaction({
-      logger: context.log,
-      config,
-      queryText: 'INSERT INTO users(firstname, lastname, prefix, street, houseno, houseno_suffix, postalcode, city, country, phone1, phone2, email1, email2, date_modified) ' +
-                 'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING id;',
-      inputParameters: [
-        validatedUser.firstname,
-        validatedUser.lastname,
-        validatedUser.prefix,
-        validatedUser.street,
-        validatedUser.houseno,
-        validatedUser.houseno_suffix,
-        validatedUser.postalcode,
-        validatedUser.city,
-        validatedUser.country,
-        validatedUser.phone1,
-        validatedUser.phone2,
-        validatedUser.email1,
-        validatedUser.email2,
-        new Date().toISOString()
-      ]
-    })
-    logDebug(context.log, `Result: ${resp}`)
-    resultBody = resp
-    context.res.status = 201
+    try {
+      const resp = await executeTransaction({
+        logger: context.log,
+        config,
+        queryText: 'INSERT INTO users(firstname, lastname, prefix, street, houseno, houseno_suffix, postalcode, city, country, phone1, phone2, email1, email2, date_modified) ' +
+                   'VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING id;',
+        inputParameters: [
+          validatedUser.firstname,
+          validatedUser.lastname,
+          validatedUser.prefix,
+          validatedUser.street,
+          validatedUser.houseno,
+          validatedUser.houseno_suffix,
+          validatedUser.postalcode,
+          validatedUser.city,
+          validatedUser.country,
+          validatedUser.phone1,
+          validatedUser.phone2,
+          validatedUser.email1,
+          validatedUser.email2,
+          new Date().toISOString()
+        ]
+      })
+      logDebug(context.log, `Result: ${resp}`)
+      resultBody = resp
+      context.res.status = 201
+    } catch (error) {
+      logDebug(context.log, `Result: ${error.message}`)
+      if (error.code === '23505') {
+        context.res.status = 409
+        resultBody = {
+          error: 'User already exists.'
+        }
+      } else {
+        context.res.status = 500
+        resultBody = {
+          error: error.message
+        }
+      }
+    }
   } else {
     context.res.status = 400
     resultBody = {
-      error: 'Missing mandatory fields'
+      error: 'One or more mandatory fields are missing.'
     }
   }
   context.res.body = resultBody
