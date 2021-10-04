@@ -1,17 +1,40 @@
 async function run (context, req) {
-  context.log('JavaScript HTTP trigger function processed a request.')
+  context.log.info('INFO - JavaScript HTTP trigger function processed a request.')
 
   const name = (req.query.name || (req.body && req.body.name))
-  const responseMessage = name
-    ? 'Hello, ' + name + '. This HTTP triggered function executed successfully.'
-    : 'This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.'
+  let responseMessage = name ? 'Hello, ' + name : '?'
+
+
+  // Bindingdata
+  const idFromUrl = context.bindingData.id
+  if(idFromUrl){
+    responseMessage = `Id = ${idFromUrl}`
+  } else{
+    context.log.warn('WARNING - No ID found in URL')
+  }
 
   context.res = {
-    // status: 200, /* Defaults to 200 */
     body: responseMessage
   }
 }
 
+function environmentVariablesExample(){
+  //Retrieve environment variables, preferably once at the start of the Function
+  const config = getEnvironmentVariables()
+
+  return `${config.sqlDatabaseServer}:${config.sqlDatabasePort}/user=${config.sqlDatabaseUser}`
+}
+
+function getEnvironmentVariables () {
+  return {
+    sqlDatabaseServer: process.env.DBHOST,
+    sqlDatabasePort: Number(process.env.DBPORT),
+    sqlDatabaseUser: process.env.DBUSER,
+  }
+}
+
 module.exports = {
-  run
+  run,
+  environmentVariablesExample,
+  getEnvironmentVariables
 }
