@@ -21,8 +21,8 @@ function getProcessorsForAddedSubscriptions() {
 }
 
 function determineMostRecent(subscriptions) {
-    mostRecentSub = subscriptions.next();
-    maxValue = new Date(mostRecentSub['subscribedAt']);
+    let mostRecentSub = subscriptions.next().value;
+    let maxValue = new Date(mostRecentSub['subscribedAt']);
     for (const subscription of subscriptions) {
         currValue = new Date(subscription['subscribedAt']);
         if (currValue > maxValue) {
