@@ -7,3 +7,8 @@
 - [Cucumber](./CucumberJS/cucumberjs.docx)
 
 Zie de desbetreffende documenten voor de uit te voeren stappen om de lab uit te kunnen voeren.
+
+# Links
+- [Jest](https://jestjs.io/docs/getting-started)
+- [CucumberJS](https://cucumber.io/docs/installation/javascript/)
+
