@@ -14,3 +14,7 @@ Zie de desbetreffende documenten voor de uit te voeren stappen om de lab uit te 
 - [Jest](https://jestjs.io/docs/getting-started)
 - [CucumberJS](https://cucumber.io/docs/installation/javascript/)
 
+# Presentaties
+
+- [Jest](JEST%20presentatie.pptx)
+- [Nock](Lab%20nock%20en%20mocking%20met%20Azure%20functions/SIG%20Testen%20met%20JavaScript%20en%20TypeScript%20-%20Mocking.pptx)
