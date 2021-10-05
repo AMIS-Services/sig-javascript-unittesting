@@ -8,6 +8,8 @@
 
 Zie de desbetreffende documenten voor de uit te voeren stappen om de lab uit te kunnen voeren.
 
+> Voor de lab 'Nock en mocking met Azure functions' is het handig werkt het het beste om in VScode de submap user-api-function uit te checken.
+
 # Links
 - [Jest](https://jestjs.io/docs/getting-started)
 - [CucumberJS](https://cucumber.io/docs/installation/javascript/)
